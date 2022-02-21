@@ -129,13 +129,13 @@ def train(epoch, model, optimizer, train_loader, device, vlog, elog, log_var_std
         train_loss += loss.item()
         optimizer.step()
         if batch_idx % 100 == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx, len(train_loader),
-                100. * batch_idx / len(train_loader),
-                loss.item() / len(data)))
-            vlog.show_value(torch.mean(kl).item(), name="Kl-loss", tag="Losses")
-            vlog.show_value(torch.mean(rec).item(), name="Rec-loss", tag="Losses")
-            vlog.show_value(loss.item(), name="Total-loss", tag="Losses")
+            print(f'Train Epoch: {epoch} [{batch_idx}/{len(train_loader)} ({100. * batch_idx / len(train_loader):.0f}%)]'
+                  f'\tLoss: {loss.item() / len(data):.6f}'
+                  f'\tKL,Rec,Total: {torch.mean(kl).item():.3f}, {torch.mean(rec).item():.3f}, {loss.item():.3f}')
+            
+            # vlog.show_value(torch.mean(kl).item(), name="Kl-loss", tag="Losses")
+            # vlog.show_value(torch.mean(rec).item(), name="Rec-loss", tag="Losses")
+            # vlog.show_value(loss.item(), name="Total-loss", tag="Losses")
 
     print('====> Epoch: {} Average loss: {:.4f}'.format(
         epoch, train_loss / len(train_loader)))
@@ -160,9 +160,9 @@ def test_slice(model, test_loader, test_loader_abnorm, device, vlog, elog, image
             #                             recon_batch[:n]])
                 # vlog.show_image_grid(comparison.cpu(),                                     name='reconstruction')
 
-    vlog.show_value(np.mean(kl_loss), name="Norm-Kl-loss", tag="Anno")
-    vlog.show_value(np.mean(rec_loss), name="Norm-Rec-loss", tag="Anno")
-    vlog.show_value(np.mean(test_loss), name="Norm-Total-loss", tag="Anno")
+    # vlog.show_value(np.mean(kl_loss), name="Norm-Kl-loss", tag="Anno")
+    # vlog.show_value(np.mean(rec_loss), name="Norm-Rec-loss", tag="Anno")
+    # vlog.show_value(np.mean(test_loss), name="Norm-Total-loss", tag="Anno")
     elog.show_value(np.mean(kl_loss), name="Norm-Kl-loss", tag="Anno")
     elog.show_value(np.mean(rec_loss), name="Norm-Rec-loss", tag="Anno")
     elog.show_value(np.mean(test_loss), name="Norm-Total-loss", tag="Anno")
@@ -186,9 +186,9 @@ def test_slice(model, test_loader, test_loader_abnorm, device, vlog, elog, image
 
     elog.print('====> Test set loss: {:.4f}'.format(np.mean(test_loss)))
 
-    vlog.show_value(np.mean(kl_loss_ab), name="Unorm-Kl-loss", tag="Anno")
-    vlog.show_value(np.mean(rec_loss_ab), name="Unorm-Rec-loss", tag="Anno")
-    vlog.show_value(np.mean(test_loss_ab), name="Unorm-Total-loss", tag="Anno")
+    # vlog.show_value(np.mean(kl_loss_ab), name="Unorm-Kl-loss", tag="Anno")
+    # vlog.show_value(np.mean(rec_loss_ab), name="Unorm-Rec-loss", tag="Anno")
+    # vlog.show_value(np.mean(test_loss_ab), name="Unorm-Total-loss", tag="Anno")
     elog.show_value(np.mean(kl_loss_ab), name="Unorm-Kl-loss", tag="Anno")
     elog.show_value(np.mean(rec_loss_ab), name="Unorm-Rec-loss", tag="Anno")
     elog.show_value(np.mean(test_loss_ab), name="Unorm-Total-loss", tag="Anno")
@@ -203,16 +203,16 @@ def test_slice(model, test_loader, test_loader_abnorm, device, vlog, elog, image
                                                         [0] * len(test_loss) + [1] * len(test_loss_ab),
                                                         )[0]
 
-    vlog.show_value(np.mean(kl_roc), name="KL-loss", tag="ROC")
-    vlog.show_value(np.mean(rec_roc), name="Rec-loss", tag="ROC")
-    vlog.show_value(np.mean(loss_roc), name="Total-loss", tag="ROC")
+    # vlog.show_value(np.mean(kl_roc), name="KL-loss", tag="ROC")
+    # vlog.show_value(np.mean(rec_roc), name="Rec-loss", tag="ROC")
+    # vlog.show_value(np.mean(loss_roc), name="Total-loss", tag="ROC")
     elog.show_value(np.mean(kl_roc), name="KL-loss", tag="ROC")
     elog.show_value(np.mean(rec_roc), name="Rec-loss", tag="ROC")
     elog.show_value(np.mean(loss_roc), name="Total-loss", tag="ROC")
 
-    vlog.show_value(np.mean(kl_pr), name="KL-loss", tag="PR")
-    vlog.show_value(np.mean(rec_pr), name="Rec-loss", tag="PR")
-    vlog.show_value(np.mean(loss_pr), name="Total-loss", tag="PR")
+    # vlog.show_value(np.mean(kl_pr), name="KL-loss", tag="PR")
+    # vlog.show_value(np.mean(rec_pr), name="Rec-loss", tag="PR")
+    # vlog.show_value(np.mean(loss_pr), name="Total-loss", tag="PR")
 
     return kl_roc, rec_roc, loss_roc, kl_pr, rec_pr, loss_pr, np.mean(test_loss)
 

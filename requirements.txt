@@ -1,0 +1,11 @@
+# generic
+numpy
+scikit-learn
+scipy==0.17.0
+pandas
+matplotlib==3.2  # compat with trixi, remember to uninstall mpl_toolkits as well.
+# vae-anomaly-experiments
+nibabel
+medpy
+batchgenerators==0.19 # 2019 version https://github.com/MIC-DKFZ/batchgenerators/tags
+trixi==0.1.1.5 # https://github.com/MIC-DKFZ/trixi/tags, higher versions isntalls scipy>1.0.0, which deprecates imsave

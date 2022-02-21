@@ -1,3 +1,10 @@
+
+data/atlas2/
+data/hcp1200*
+exp/*
+exp_*/*
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

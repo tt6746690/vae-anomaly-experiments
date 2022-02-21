@@ -1,0 +1,10 @@
+name: inr
+channels:
+    - conda-forge
+    - pytorch
+dependencies:
+    - python
+    - pytorch::pytorch
+    - pytorch::torchvision
+    - cudatoolkit=11.3
+    - nb_conda
