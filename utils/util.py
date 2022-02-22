@@ -77,6 +77,8 @@ def find_best_val(x, y, val_fn, val_range=(0, 1), max_steps=4, step=0, max_val=0
 def smooth_tensor(tensor, kernel_size=8, sigma=3, channels=1):
     # Set these to whatever you want for your gaussian filter
 
+    tensor = tensor.clone().detach()
+
     if kernel_size % 2 == 0:
         kernel_size -= 1
 

@@ -193,6 +193,7 @@ def test_slice(model, test_loader, test_loader_abnorm, device, vlog, elog, image
     elog.show_value(np.mean(rec_loss_ab), name="Unorm-Rec-loss", tag="Anno")
     elog.show_value(np.mean(test_loss_ab), name="Unorm-Total-loss", tag="Anno")
 
+    # get_classification_metrics(score, label)
     kl_roc, kl_pr = elog.get_classification_metrics(kl_loss + kl_loss_ab,
                                                     [0] * len(kl_loss) + [1] * len(kl_loss_ab),
                                                     )[0]
